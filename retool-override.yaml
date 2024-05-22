@@ -1,0 +1,49 @@
+config:
+  licenseKey: "SSOP_.....53aa2ba" # Your Retool License Key
+  useInsecureCookies: "true" # Set it as true if you don't use https
+  encryptionKey: 5....w # Random string
+  jwtSecret: va..w # Random string
+  postgresql:
+    host: "10.30.1.167" # IP address of the postgresql server
+    port: "5432"
+    db: "postgres"
+    user: "admin" # Database user
+    password: ""  # Database password
+    ssl_enabled: "true"
+  auth:
+    google: # Setup Google authentication as documented here: https://docs.retool.com/sso/quickstarts/google/google-sign-in
+      clientId: "86938522...7gduncp1.apps.googleusercontent.com"
+      clientSecret: "....0djq4B"
+      domain: "retool.domain" # Replace with your domain
+env:
+  NODE_ENV: "production"
+  SERVICE_TYPE: "MAIN_BACKEND,DB_CONNECTOR,DB_SSH_CONNECTOR"
+  FORCE_DEPLOYMENT: "false"
+  POSTGRES_SSL_REJECT_UNAUTHORIZED: "false" # Required if you are using SSL with self signed certificates to connect to the DB
+  DISABLE_DATABASE_MIGRATIONS: "false"
+
+replicaCount: 1
+
+image:
+  tag: "latest"
+
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hosts:
+  - host: "retool.domain" # Replace with your domain
+    pathType: Prefix
+    paths:
+      - path: /
+
+postgresql:
+  enabled: false
+
+workflows:
+  enabled: false
+
+codeExecutor:
+  enabled: false
+
+jobRunner:
+  enabled: true
